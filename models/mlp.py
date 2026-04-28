@@ -1,5 +1,7 @@
 from nn.layers import Linear
 from nn.activations import sigmoid
+from nn.activations import relu
+from nn.activations import softmax
 
 class MLP:
     def __init__(self):
@@ -7,10 +9,11 @@ class MLP:
         self.l2 = Linear(128, 10)
 
     def forward(self, x):
-        z1 = self.l1.forward(x)
-        a1 = sigmoid(z1)
+        self.z1 = self.l1.forward(x)
+        self.a1 = relu(self.z1)
 
-        z2 = self.l2.forward(a1)
-        a2 = sigmoid(z2)
+        self.z2 = self.l2.forward(self.a1)
+        self.a2 = softmax(self.z2)
 
-        return a2
+        return self.a2
+
